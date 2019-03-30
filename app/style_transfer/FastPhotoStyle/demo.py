@@ -10,7 +10,8 @@ from . import process_stylization
 from .photo_wct import PhotoWCT
 
 from .photo_gif import GIFSmoothing
-
+from app.wrappers import pathes_class
+REPO_CONFIG = pathes_class.repoConfig()
 
 # parser = argparse.ArgumentParser(description='Photorealistic Image Stylization')
 # parser.add_argument('--model', default='./PhotoWCTModels/photo_wct.pth')
@@ -56,7 +57,7 @@ class MyNvidiaWrapper:
     def __init__(self):
         self._p_wct = PhotoWCT()
         self._p_wct.load_state_dict(
-            torch.load('/home/roman/Desktop/deep-anonymizer/app/style_transfer/FastPhotoStyle/PhotoWCTModels/photo_wct.pth'))
+            torch.load(REPO_CONFIG.paths["my_nvidia_wrapper_weight_path"]))
 
         self._p_pro = GIFSmoothing(r=35, eps=0.001)
 

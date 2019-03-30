@@ -16,6 +16,8 @@ from .lib.nn import user_scattered_collate, async_copy_to
 from .lib.utils import as_numpy, mark_volatile
 from .lib.utils import data as torchdata
 import cv2
+from app.wrappers import pathes_class
+REPO_CONFIG = pathes_class.repoConfig()
 
 
 def visualize_result(data, preds, args):
@@ -79,12 +81,12 @@ def main(args):
     net_encoder = builder.build_encoder(
         arch='resnet101',
         fc_dim=2048,
-        weights='/home/ikibardin/deep-anonymizer/app/style_transfer/sky_seg/baseline-resnet101-upernet/encoder_epoch_25.pth')
+        weights="")
     net_decoder = builder.build_decoder(
         arch='upernet',
         fc_dim=2048,
         num_class=args.num_class,
-        weights='/home/ikibardin/deep-anonymizer/app/style_transfer/sky_seg/baseline-resnet101-upernet/decoder_epoch_25.pth',
+        weights="",
         use_softmax=True)
 
     crit = nn.NLLLoss(ignore_index=-1)
@@ -120,12 +122,12 @@ class SkySegWrapper:
         net_encoder = builder.build_encoder(
             arch='resnet101',
             fc_dim=2048,
-            weights='/home/roman/Desktop/deep-anonymizer/app/style_transfer/sky_seg/baseline-resnet101-upernet/encoder_epoch_25.pth')
+            weights=REPO_CONFIG.paths["sky_seg_encoder_weight_path"])
         net_decoder = builder.build_decoder(
             arch='upernet',
             fc_dim=2048,
             num_class=150,
-            weights='/home/roman/Desktop/deep-anonymizer/app/style_transfer/sky_seg/baseline-resnet101-upernet/decoder_epoch_25.pth',
+            weights=REPO_CONFIG.paths['sky_seg_decoder_weight_path'],
             use_softmax=True)
 
         crit = nn.NLLLoss(ignore_index=-1)

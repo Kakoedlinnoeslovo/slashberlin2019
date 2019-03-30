@@ -108,6 +108,7 @@ class Anonymizer:
 
     def anonymize(self, image_path: str, action) -> str:
         image = utils.load_image(image_path)
+
         image = cv2.copyMakeBorder(image, PAD_SIZE, PAD_SIZE, PAD_SIZE, PAD_SIZE, cv2.BORDER_REPLICATE)
         modified_image = image.copy()
 

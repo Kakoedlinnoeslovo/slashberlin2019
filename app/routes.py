@@ -18,10 +18,11 @@ photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 patch_request_class(app)  # set maximum file size, default is 16MB
 
-with open('/home/roman/Desktop/deep-anonymizer/app/paths.yml', 'r') as f:
-    paths_config = yaml.load(f)
+from app.wrappers import pathes_class
 
-anonymizer = Anonymizer(paths_config)
+REPO_CONFIG = pathes_class.repoConfig()
+
+anonymizer = Anonymizer(REPO_CONFIG.paths)
 
 
 class UploadForm(FlaskForm):
