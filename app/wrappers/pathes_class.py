@@ -2,7 +2,7 @@ import yaml
 
 class repoConfig:
     def __init__(self):
-        with open('/storage/slashberlin2019/app/paths.yml', 'r') as f:
+        with open('app/paths.yml', 'r') as f:
            self.paths = yaml.load(f)
 
 
