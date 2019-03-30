@@ -9,8 +9,8 @@ import tensorflow as tf
 from moviepy.video.io.VideoFileClip import VideoFileClip
 import moviepy.video.io.ffmpeg_writer as ffmpeg_writer
 
-from src import transform, vgg
-from src.utils import save_img, get_img, exists, list_files
+from .src import transform, vgg
+from .src.utils import save_img, get_img, exists, list_files
 
 BATCH_SIZE = 4
 DEVICE = '/gpu:0'
