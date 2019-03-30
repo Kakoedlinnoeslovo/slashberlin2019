@@ -9,3 +9,10 @@ face_swap_gan_weights_dir: ./app/ItemSwap/weights_faces/gan_models/
 segmentation_weights_dir: ./app/style_transfer/CIHP_master/checkpoint/CIHP_pgn
 cloths_style_transfer_weights_dir: ./app/style_transfer/fast_style_transfer/weights
 background_style_transfer_weight_dir: ./app/ItemSwap/weights_background
+
+WEIGHT_PATH: /storage/slashberlin2019/app/style_transfer/CIHP_master/checkpoint/CIHP_pgn
+
+style_image_path: /storage/slashberlin2019/app/style_transfer/FastPhotoStyle/images/
+sky_seg_encoder_weight_path: /home/roman/Desktop/deep-anonymizer/app/style_transfer/sky_seg/baseline-resnet101-upernet/encoder_epoch_25.pth
+sky_seg_decoder_weight_path: /home/roman/Desktop/deep-anonymizer/app/style_transfer/sky_seg/baseline-resnet101-upernet/decoder_epoch_25.pth
+my_nvidia_wrapper_weight_path: /home/roman/Desktop/deep-anonymizer/app/style_transfer/FastPhotoStyle/PhotoWCTModels/photo_wct.pth

@@ -19,6 +19,15 @@ from app.style_transfer import config
 
 import cv2
 
+from app.wrappers import pathes_class
+
+REPO_CONFIG = pathes_class.repoConfig()
+#DIR = REPO_CONFIG["DIR"]
+#IMG_ROOT = REPO_CONFIG["IMG_ROOT"]
+#TEMP_IMAGE = REPO_CONFIG["TEMP_IMAGE"]
+WEIGHT_PATH = REPO_CONFIG["WEIGHT_PATH"]
+#OUT_PATH = REPO_CONFIG["OUT_PATH"]
+
 class SegmentationModel:
     def __init__(self, weights_dir):
         self._model = PGN()
@@ -61,13 +70,6 @@ class SegmentationModel:
         e_x = np.exp(x - np.max(x, axis)[..., None])
         return e_x / e_x.sum(axis=axis)[..., None]
 
-
-
-DIR = '/home/roman/Desktop/pix2pixHD/datasets/lamoda/lamoda_preprocess'
-IMG_ROOT = "/home/roman/Desktop/pix2pixHD/datasets/lamoda/lamoda_saved_tshirt"
-TEMP_IMAGE = "/home/roman/Desktop/pix2pixHD/datasets/lamoda/lamoda_saved_tshirt/item_70/GI031EMDKIB3_7797301_2_v1.jpg"
-WEIGHT_PATH = '/home/roman/Desktop/deep-anonymizer/app/style_transfer/CIHP_master/checkpoint/CIHP_pgn'
-OUT_PATH = "/home/roman/Desktop/pix2pixHD/datasets/lamoda/lamoda_preprocess"
 
 
 

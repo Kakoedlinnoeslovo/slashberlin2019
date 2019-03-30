@@ -18,6 +18,8 @@ from ..style_transfer.segmentation import config as segmentation_config
 from ..style_transfer.sky_seg.test import SkySegWrapper
 
 import matplotlib.pyplot as plt
+from app.wrappers import pathes_class
+REPO_CONFIG = pathes_class.repoConfig()
 
 DEVICE = '/gpu:0'
 
@@ -203,8 +205,7 @@ class SegmentationStyleTransfer:
 
             utils.save_image(in_path, small_image)
 
-            style_image_path = '/home/roman/Desktop/deep-anonymizer/app/style_transfer/FastPhotoStyle/images/{}.jpg'.format(
-                style)
+            style_image_path = '{}.jpg'.format(REPO_CONFIG.paths['style_image_path'], style)
             _, out1_path = tempfile.mkstemp(suffix='.png', dir=self._DIR)
 
             self._nvidia_transfer.transform(in_path, style_image_path, out1_path)
