@@ -4,6 +4,7 @@ import yaml
 
 import flask
 from flask import render_template
+from flask import request, jsonify
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
@@ -89,7 +90,7 @@ def resize_input(path):
     return path
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST', 'PUT'])
 def upload_file():
     form = UploadForm()
     if form.validate_on_submit():
@@ -107,6 +108,10 @@ def upload_file():
     else:
         main_image_url = None
         bottom_image_url = None
+
+    if request.method == 'PUT':
+        return jsonify()
+
     return render_template('index.html', form=form, main_image_url=main_image_url,
                            bottom_image_url=bottom_image_url)
 
