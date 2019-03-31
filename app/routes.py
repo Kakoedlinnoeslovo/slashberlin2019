@@ -99,8 +99,10 @@ from urllib.parse import urlparse
 @app.route('/', methods=['GET', 'POST', 'PUT'])
 def upload_file():
     form = UploadForm()
-    if form.validate_on_submit():
-        if request.method == 'PUT':
+
+    is_put_ajax = request.method == 'PUT'
+    if form.validate_on_submit() or is_put_ajax:
+        if is_put_ajax:
             unique_str = str(uuid4())
             init_image_path = f'./images/upload/{unique_str}.png'
             with open(init_image_path, 'w') as f:
