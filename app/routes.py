@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+import base64
 import json
+from uuid import uuid4
+
 import yaml
 
 import flask
@@ -97,7 +100,15 @@ from urllib.parse import urlparse
 def upload_file():
     form = UploadForm()
     if form.validate_on_submit():
-        init_image_path = photos.save(form.photo.data, folder='./images/upload')
+        if request.method == 'PUT':
+            unique_str = str(uuid4())
+            init_image_path = f'./images/upload/{unique_str}.png'
+            with open(init_image_path, 'w') as f:
+                img_str = json.loads(request.data).get('photo').split(',')[1]
+                img_bytes = base64.b64decode(img_str)
+                f.write(img_bytes)
+        else:
+            init_image_path = photos.save(form.photo.data, folder='./images/upload')
 
         init_image_path = resize_input(init_image_path)
         # init_image_url = photos.url(init_image_path)
@@ -113,21 +124,23 @@ def upload_file():
     else:
         main_image_url = None
         bottom_image_url = None
-<<<<<<< HEAD
+
+    main_image_url_for_client = ('/_uploads/photos' + main_image_path.lstrip('.')) if main_image_url else None
+    bottom_image_url_for_client = ('/_uploads/photos' + bottom_image_path.lstrip('.')) if main_image_url else None
 
     if request.method == 'PUT':
-        return jsonify()
+        request.files
+        return jsonify(
+            main_image_url=main_image_url_for_client,
+            bottom_image_url=bottom_image_url_for_client
+        )
 
-    return render_template('index.html', form=form, main_image_url=main_image_url,
-                           bottom_image_url=bottom_image_url)
-=======
     return render_template('index.html', form=form,
-                           main_image_url=('/_uploads/photos' + main_image_path.lstrip('.')) if main_image_url else None,
+                           main_image_url=main_image_url_for_client,
                            #main_image_url=main_image_url,
-                           bottom_image_url='/_uploads/photos' + bottom_image_path.lstrip('.') if main_image_url else None
+                           bottom_image_url=bottom_image_url_for_client
                             #bottom_image_url=bottom_image_url
                            )
->>>>>>> 78bae690d5b4e74644e8b9e9ebd6f0e855eecf1e
 
 
 @app.route('/edit', methods=['GET', 'POST'])
