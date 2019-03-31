@@ -90,6 +90,9 @@ def resize_input(path):
     return path
 
 
+from urllib.parse import urlparse
+
+
 @app.route('/', methods=['GET', 'POST', 'PUT'])
 def upload_file():
     form = UploadForm()
@@ -101,19 +104,30 @@ def upload_file():
 
         main_image_path = anonymizer.anonymize(init_image_path, action=AnonymizerActions.PANTS_TO_JEANS)
         main_image_url = photos.url(main_image_path)
+        #main_image_url = main_image_path
 
         bottom_image_path = anonymizer.compose_bottom(image_path=init_image_path)
         bottom_image_url = photos.url(bottom_image_path)
+        #bottom_image_url = bottom_image_path
 
     else:
         main_image_url = None
         bottom_image_url = None
+<<<<<<< HEAD
 
     if request.method == 'PUT':
         return jsonify()
 
     return render_template('index.html', form=form, main_image_url=main_image_url,
                            bottom_image_url=bottom_image_url)
+=======
+    return render_template('index.html', form=form,
+                           main_image_url=('/_uploads/photos' + main_image_path.lstrip('.')) if main_image_url else None,
+                           #main_image_url=main_image_url,
+                           bottom_image_url='/_uploads/photos' + bottom_image_path.lstrip('.') if main_image_url else None
+                            #bottom_image_url=bottom_image_url
+                           )
+>>>>>>> 78bae690d5b4e74644e8b9e9ebd6f0e855eecf1e
 
 
 @app.route('/edit', methods=['GET', 'POST'])
